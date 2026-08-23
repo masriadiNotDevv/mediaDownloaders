@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "sora";
+  src: url('./assets/fonts/Sora-Regular.ttf');
+}
+@font-face {
+  font-family: "sora_exb";
+  src: url('./assets/fonts/Sora-ExtraBold.ttf');
+}
+@font-face {
+  font-family: "sora-semibold";
+  src: url('./assets/fonts/Sora-SemiBold.ttf');
+}
+@font-face {
+  font-family: "sora-medium";
+  src: url('./assets/fonts/Sora-Medium.ttf');
+}
+@font-face {
+  font-family: "sora-ex";
+  src: url('./assets/fonts/Sora-ExtraLight.ttf');
+}
+@font-face {
+  font-family: "poppins";
+  src: url('./assets/fonts/Poppins-Medium.ttf');
+}
+
+
+
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@theme {
+  --font-semibold: sora-semibold;
+  --font-sans: sora;
+  --font-medium: sora-medium;
+  --font-medium: sora-medium;
+  --font-extrabold: sora_exb;
+  --font-semibold: poppins;
+  }
+
+@layer base {
+ * {
+  scrollbar-width:none;
+  font-family: var(--font-sans);
+ }
+}
