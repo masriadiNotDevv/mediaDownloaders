@@ -26,6 +26,8 @@ app.post("/fetch_url", (req, res) => {
                     res.json({
                         isSucces: true,
                         message: "sukses mengambil data video",
+                
+                        url : url,
                         title: info.title,
                         thumbnail: info.thumbnail,
                         description: info.description,
@@ -67,6 +69,39 @@ app.post("/fetch_url", (req, res) => {
             message: "terjadi kesalahan di server"
         })
     }
+})
+
+app.post("/download", (req, res) => {
+    const {url, format, filename, ext,token} = req.body
+    const fullName = `${filename}_${token}.${ext}`
+    const outputPath = `cache/${fullName}`
+    const proses = spawn("yt-dlp", [
+        "-f",
+        format,
+        "-o",
+        outputPath,
+        url
+    ])
+    let result = ""
+    proses.stdout.on("data", (data) => {
+result += data.toString()
+console.log(result)
+    })
+    proses.stderr.on("data", (data) =>  {
+        console.log(data.toString())
+    })
+    proses.on("close", (code) => {
+        if (code == 0) {
+            console.log("Mengirim file:", outputPath)
+
+            res.download(outputPath, fullName, (err) => {
+                if (err) {
+                    console.error("RES.DOWNLOAD ERROR:", err)
+                }
+            }) } else {
+            res.json({isSucces:false, message:"terjadi kesalahan"})
+        }
+    })
 })
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`app listen on port ${PORT}`)
