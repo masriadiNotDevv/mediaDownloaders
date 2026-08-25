@@ -3,38 +3,46 @@ import * as ic from '../assets/Icons'
 import MediaIc from '../Components/MediaIc'
 import Navbar from "../Components/Navbar"
 import ResultFetch from "../Components/ResultFetch.jsx";
+import Loading from "../Components/Loading.jsx";
 function Home() {
     const [url, setUrl] = useState("")
     const [urlError, setUrlError] = useState(false)
     const [urlErrMsg, setUrlErrMsg] = useState("")
+    const [showLoading , setStatusLoading] = useState(false)
+    const [data, setData] = useState({})
+    useEffect(() => {
+    }, [data])
     async function fetchHandler() {
         if (!url) {
-setUrlErrMsg("Pastikan url terisi")
+            setUrlErrMsg("Pastikan url terisi")
             setUrlError(true)
-        }  else if (!url.startsWith("https://")) {
+        } else if (!url.startsWith("https://")) {
             setUrlError(true)
             setUrlErrMsg("Url tidak valid")
         } else {
-try {
-    const req = await fetch("http://localhost:3000/fetch_url", {
-        method: "POST",
-        headers : {
-            "Content-Type" : "application/json"
-        },
-        body :  JSON.stringify({
-            url : url
-        })
-    })
+            try {
+                setStatusLoading(true)
+                const req = await fetch("http://192.168.1.230:3000/fetch_url", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        url: url
+                    })
+                })
 
-    const res = await req.json()
-    if (res.isSucces) {
-alert(res.message)
-    } else {
-        alert(res.message)
-    }
-} catch (error) {
-    alert(error.message)
-}
+                const res = await req.json()
+                if (res.isSucces) {
+                    setData(res)
+                    setStatusLoading(false)
+
+                } else {
+                    alert(res.message)
+                }
+            } catch (error) {
+                alert(error.message)
+            }
         }
 
     }
@@ -51,6 +59,8 @@ alert(res.message)
     return (
         <div className="bg-linear-to-t scrollbar-none from-black to-zinc-950 flex p-8 flex-col  items-center h-full w-full" >
             <Navbar />
+            {showLoading &&  <Loading />
+            }
             <div className="lg:flex justify-center items-center gap-10">
                 <div className="flex-col flex ">
                     <div className=" w-full flex flex-col items-center mt-10" >
@@ -103,7 +113,7 @@ alert(res.message)
                         </div>
                     </div>
                 </div>
-                <ResultFetch />
+                <ResultFetch data={data}/>
             </div>
         </div>
     )
