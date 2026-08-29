@@ -3,9 +3,9 @@ export function DownloadButtonAudio({ title, format, url, ext, size }) {
     const sz = size / 1024 / 1024
     async function downloadAudio() {
         try {
-
             let rand = Math.floor(Math.random() * 9999) + 1;
             let a = new Date()
+
             let now = `${a.getMilliseconds()}${a.getMinutes()}${a.getHours()}`
             const token = `${rand}${now}`
             const req = await fetch("http://192.168.1.230:3000/download", {
@@ -32,7 +32,7 @@ export function DownloadButtonAudio({ title, format, url, ext, size }) {
         }
     }
     return (
-        <div onClick={downloadAudio} className="flex  items-center rounded-sm p-2 cursor-pointer group transition-all duration-200 hover:bg-zinc-800 h-10">
+        <div onClick={downloadAudio} className="flex items-center rounded-sm p-2 cursor-pointer group transition-all duration-200 hover:bg-zinc-800 h-10">
             <ic.download className="group-hover:stroke-white duration-200 transition-all" />
             <p className="text-[10px]  ml-1 text-zinc-500 duration-200 transition-all group-hover:text-white font-semibold">{ext}</p>
             <p className="text-[10px]  ml-1 text-zinc-500 duration-200 transition-all group-hover:text-white font-semibold"> | {sz.toFixed(2)}mb</p>
@@ -45,7 +45,6 @@ export function DownloadButtonVideo({ title, format, url, ext, size, quality }) 
     const sz = size / 1024 / 1024
     async function downloadVideo() {
         try {
-
             let rand = Math.floor(Math.random() * 9999) + 1;
             let d = new Date()
             let now = `${d.getMilliseconds()}${d.getMinutes()}${d.getHours()}`
@@ -124,7 +123,7 @@ export function DownloadButtonVideo({ title, format, url, ext, size, quality }) 
     return (
         <div onClick={downloadVideo} className="flex items-center rounded-sm p-2 cursor-pointer group transition-all duration-200 hover:bg-zinc-800 h-10">
             <ic.download className="group-hover:stroke-white duration-200 transition-all" />
-            <p className="text-[10px]  ml-1 text-zinc-500 duration-200 transition-all group-hover:text-white font-semibold">{ext}</p>
+            <p className="text-[10px]  ml-1 text-zinc-500 duration-200 transition-all group-hover:text-white font-semibold">{ext} </p>
             <p className="text-[10px]  ml-1 text-zinc-500 duration-200 transition-all group-hover:text-white font-semibold"> | {sz.toFixed(2)}mb</p>
             <p className="text-[10px]  ml-1 text-zinc-500 duration-200 transition-all group-hover:text-white font-semibold"> | {quality}p</p>
         </div>

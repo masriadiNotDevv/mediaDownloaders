@@ -30,6 +30,7 @@ app.post("/fetch_url", (req, res) => {
                         url : url,
                         title: info.title,
                         thumbnail: info.thumbnail,
+                        uploader : info.uploader,
                         description: info.description,
                         audio: info.formats.filter
                             ((f) => f.acodec !== "none" && f.codev !== "none")

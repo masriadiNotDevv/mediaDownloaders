@@ -8,7 +8,7 @@ function Home() {
     const [url, setUrl] = useState("")
     const [urlError, setUrlError] = useState(false)
     const [urlErrMsg, setUrlErrMsg] = useState("")
-    const [showLoading , setStatusLoading] = useState(false)
+    const [showLoading, setStatusLoading] = useState(false)
     const [data, setData] = useState({})
     useEffect(() => {
     }, [data])
@@ -53,19 +53,19 @@ function Home() {
     function UrlMeter() {
         return (
 
-            <p className="text-red-500 mt-4 text-sm mb-1font-semibold">{urlErrMsg}</p>
+            <p className="text-red-500 mt-4 text-sm mb-1 font-semibold">{urlErrMsg}</p>
         )
     }
     return (
-        <div className="bg-linear-to-t scrollbar-none from-black to-zinc-950 flex p-8 flex-col  items-center h-full w-full" >
+        <div className="bg-linear-to-t scrollbar-none from-black to-zinc-950 flex p-10 flex-col justify-center  items-center h-screen overflow-x-hidden  w-full" >
             <Navbar />
-            {showLoading &&  <Loading />
+            {showLoading && <Loading />
             }
             <div className="lg:flex justify-center items-center gap-10">
-                <div className="flex-col flex ">
-                    <div className=" w-full flex flex-col items-center mt-10" >
+                <div className="flex-col mt-40  lg:mt-0 justify-center items-center w-full flex ">
+                    <div className=" w-90 p-9 flex b flex-col items-center mt-10 sm:mt-1 sm:w-full" >
                         <h1 className="text-center text-2xl lg:text-5xl text-cyan-500 font-extrabold"> MediaDownloader</h1>
-                        <h1 className="text-center text-[14px] lg:text-[14px] text-white">download any media from social media free usefull and no ads</h1>
+                        <h1 className="text-center text-[14px] w-full lg:text-[14px] text-white">download any media from social media free usefull and no ads</h1>
                         <div className="w-96 rounded-2xl flex flex-col items-center p-2 text-gray-500 mt-1 h-14 ">
 
                             <div className="flex gap-7 items-center">
@@ -79,41 +79,46 @@ function Home() {
 
 
                     </div>
-                    <div className="w-full lg:w-lg p-4 mt-4 bg-zinc-950 rounded-2xl shadow-2xl shadow-black" >
-                        <div className="flex gap-3      ">
-                            <div className="bg-zinc-900 rounded-lg flex p-2 justify-center items-center">
+                    <div className="w-full flex items-center justify-center">
 
-                                <ic.icDl />
-                            </div>
-                            <div className="">
+                        <div className="w-80 sm:w-full lg:w-lg p-4 mt-4 bg-zinc-950 rounded-2xl shadow-2xl shadow-black" >
+                            <div className="flex gap-3      ">
+                                <div className="bg-zinc-900 rounded-lg flex p-2 justify-center items-center">
 
-                                <h1 className="text-[13px] font-semibold text-white">Download video only or audio format </h1>
-                                <h1 className="text-[10px] text-zinc-400">Lets started with url below</h1>
+                                    <ic.icDl />
+                                </div>
+                                <div className="">
+
+                                    <h1 className="text-[13px] font-semibold text-white">Download video only or audio format </h1>
+                                    <h1 className="text-[10px] text-zinc-400">Lets started with url below</h1>
+                                </div>
                             </div>
-                        </div>
-                        <UrlMeter />
-                        <div className=" w-full  gap-2 h-12 flex " >
-                            <input type="url" value={url} onChange={urlHandler} placeholder="Masukan url... "
-                                className={`
+                            <UrlMeter />
+                            <div className=" w-full  gap-2 h-12 flex " >
+                                <input type="url" value={url} onChange={urlHandler} placeholder="Masukan url... "
+                                    className={`
                              text-[12px] text-white pl-2  h-full w-[90%] bg-black rounded-lg outline-2 transition-all duration-200 
                              ${urlError ? "outline-red-600 shadow-red-500 shadow-sm bg-red-950 placeholder:text-red-200" : "outline-zinc-950"}
                              `}
 
-                            ></input>
-                            <div className="h-full bg-zinc-900  rounded-lg w-10 flex justify-center items-center ">
-                                <ic.clearUrl />
-                            </div>
+                                ></input>
+                                <div className="h-full bg-zinc-900  rounded-lg w-10 flex justify-center items-center ">
+                                    <ic.clearUrl />
+                                </div>
 
-                        </div>
-                        <div onClick={fetchHandler} className="mt-3   gap-2 flex justify-center items-center rounded-xl h-12 w-full shadow-sm shadow-black bg-zinc-900 ">
-                            <ic.fetch />
-                            <button className="  text-white font-semibold">
-                                Fetch Media
-                            </button>
+                            </div>
+                            <div onClick={fetchHandler} className="mt-3   gap-2 flex justify-center items-center rounded-xl h-12 w-full shadow-sm shadow-black bg-zinc-900 ">
+                                <ic.fetch />
+                                <button className="  text-white font-semibold">
+                                    Fetch Media
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <ResultFetch data={data}/>
+                <div className="w-full p-8 h-full justify-center overflow-x-hidden  flex flex-col items-center ">
+                    <ResultFetch data={data} />
+                </div>
             </div>
         </div>
     )

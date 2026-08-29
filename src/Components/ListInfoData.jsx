@@ -13,7 +13,7 @@ export function ListInfoData({ title, icon, value }) {
             <div className="">
 
                 <h2 className="text-zinc-400 text-[10px] group-hover:text-cyan-500">{title}</h2>
-                <h2 className="text-white font-semibold text-sm hover:text-cyan-500 transition-all duration-200 cursor-default">{value}</h2>
+                <h2 className="text-white font-semibold  text-sm hover:text-cyan-500 transition-all  duration-200 cursor-default">{value?.length > 20 ? value.slice(0, 100) + "....More" : value}</h2>
 
 
             </div>
