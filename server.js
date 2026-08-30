@@ -1,6 +1,12 @@
 import express from "express"
 import cors from "cors"
 import { spawn } from "child_process"
+import path from "path"
+import { fileURLToPath } from "url"
+import fs from "fs"
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 const app = express()
 app.use(express.json())
 app.use(cors())
@@ -75,7 +81,8 @@ app.post("/fetch_url", (req, res) => {
 app.post("/download", (req, res) => {
     const {url, format, filename, ext,token} = req.body
     const fullName = `${filename}_${token}.${ext}`
-    const outputPath = `cache/${fullName}`
+    
+    const outputPath = path.join(__dirname, "cache", fullName)
     const proses = spawn("yt-dlp", [
         "-f",
         format,
@@ -94,12 +101,15 @@ console.log(result)
     proses.on("close", (code) => {
         if (code == 0) {
             console.log("Mengirim file:", outputPath)
-
+console.log("===========EXISTS:", fs.existsSync(outputPath))
             res.download(outputPath, fullName, (err) => {
                 if (err) {
-                    console.error("RES.DOWNLOAD ERROR:", err)
+                    console.error("=======================RES.DOWNLOAD ERROR:", err)
                 }
-            }) } else {
+            })
+        }
+            
+            else {
             res.json({isSucces:false, message:"terjadi kesalahan"})
         }
     })
